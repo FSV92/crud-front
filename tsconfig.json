@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "outDir": "./dist/", // куда компилироваться. не рабоатет, поскольку настраиваем в webpack
+    "noImplicitAny": true, // не позваоляет использовать переменные без явного указания типа(подсвечивает эти места)
+    "module": "ESNext", // какую модульную сборку используем
+    "target": "es5", // в какую спецификацию компилируем:для поддержки большинства браузеров
+    "jsx": "react-jsx", // для того что бы могли писать jsx react
+    "allowJs": true, // компилятор будет обрабатывать не только ts файлы но js
+    "moduleResolution": "node", //
+    "baseUrl": ".", // для абсолютного импорта
+    "paths": {
+      "*": ["./src/*"]
+    },
+    "esModuleInterop": true, // позволяет импортировать import * as myModule from './myModule'; в виде import myModule from './myModule';
+    "allowSyntheticDefaultImports": true
+  },
+  "ts-node": {
+    "compilerOptions": {
+      "module": "CommonJS"
+    }
+  }
+}
