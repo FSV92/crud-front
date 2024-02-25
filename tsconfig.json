@@ -11,6 +11,7 @@
     "paths": {
       "*": ["./src/*"]
     },
+    "experimentalDecorators": true,
     "esModuleInterop": true, // позволяет импортировать import * as myModule from './myModule'; в виде import myModule from './myModule';
     "allowSyntheticDefaultImports": true
   },
