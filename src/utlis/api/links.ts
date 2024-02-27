@@ -1,4 +1,6 @@
-export const baseUrl = "http://crud/api";
+export const baseUrl = "http://crud";
 
-export const getAllPosts = `${baseUrl}/getAllPosts`;
-export const getTaxByID = `${baseUrl}/getTaxByID`;
+export const login = `${baseUrl}/user/login?_format=json`;
+export const logout = (logoutToken: string) => `${baseUrl}/user/logout?_format=json&token=${logoutToken}`;
+export const getAllPosts = `${baseUrl}/api/getAllPosts`;
+export const getTaxByID = `${baseUrl}/api/getTaxByID`;

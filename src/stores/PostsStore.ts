@@ -38,11 +38,11 @@ type ReceivedPostType = {
 };
 
 class PostModel {
-  @observable id: number;
-  @observable title: string;
-  @observable body: string;
-  @observable dates: Array<{ value: string }>;
-  @observable image: string;
+  @observable id: PostModelType["id"];
+  @observable title: PostModelType["title"];
+  @observable body: PostModelType["body"];
+  @observable dates: PostModelType["dates"];
+  @observable image: PostModelType["image"];
   @observable type: PostModelType["type"];
   @observable tags: PostModelType["tags"];
 
@@ -75,11 +75,11 @@ class PostsStore {
       // console.log(post.field_tip_sobytiya);
 
       const options = {
-        id: post.nid[0].value,
-        title: post.title[0].value,
-        body: post.body[0].value,
+        id: post.nid[0]?.value,
+        title: post.title[0]?.value,
+        body: post.body[0]?.value,
         dates: post.field_klyuchevaya_data,
-        image: post.field_image[0].url,
+        image: post.field_image[0]?.url,
         type: post.field_tip_sobytiya[0],
         tags: post.field_tags,
       };

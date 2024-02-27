@@ -12,8 +12,9 @@ const Type: React.FC<{ type: PostModelType["type"] }> = (props) => {
 
   useEffect(() => {
     (async () => {
-      const typeObj = type.target_id && (await PostsStore.getTaxByID("tip", type.target_id));
-      setTypeName(typeObj[0].name[0].value);
+      const typeObj = type?.target_id && (await PostsStore.getTaxByID("tip", type.target_id));
+
+      typeObj && setTypeName(typeObj[0]?.name[0]?.value);
     })();
   }, []);
 

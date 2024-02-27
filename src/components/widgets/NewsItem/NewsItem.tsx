@@ -29,9 +29,8 @@ const NewsItem: React.FC<PropsType> = observer((props) => {
           {post.title}
         </Link>
 
-        <Type type={post.type} />
+        {post.type && <Type type={post.type} />}
       </div>
-
       <img className="news__item-img" src={post.image} />
       <div className="news__item-body" dangerouslySetInnerHTML={{ __html: post.body }} />
       <div className="news__item-dates">
@@ -41,10 +40,17 @@ const NewsItem: React.FC<PropsType> = observer((props) => {
         })}
       </div>
 
-      <div className="news__item-tags">
-        {post.tags.map((tag) => (
-          <Tag key={tag.target_id} tid={tag.target_id} />
-        ))}
+      <div className="news__item-footer">
+        <div className="news__item-tags">
+          {post.tags.map((tag) => (
+            <Tag key={tag.target_id} tid={tag.target_id} />
+          ))}
+        </div>
+
+        <div className="news__item-btns">
+          <button className="news__item-btn news__item-btn--del">Удалить</button>
+          <button className="news__item-btn news__item-btn--edit">Изменить</button>
+        </div>
       </div>
     </div>
   );
