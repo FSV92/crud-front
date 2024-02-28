@@ -7,6 +7,8 @@ export const login = async ({ name, pass }: EnteredValuesType) => {
     .post(links.login, { name, pass })
     .then((res) => res)
     .catch((error) => {
+      console.log(error.response.data);
+
       return error.response.data;
     });
 

@@ -4,7 +4,12 @@ import { observer } from "mobx-react-lite";
 
 import LoginStore from "../../../stores/LoginStore";
 
-const LoginForm: React.FC = observer((props) => {
+type PropsType = {
+  onCloseModal(): void;
+};
+
+const LoginForm: React.FC<PropsType> = observer((props) => {
+  const { onCloseModal } = props;
   const [name, setName] = useState("");
   const [pass, setPass] = useState("");
 
@@ -15,8 +20,11 @@ const LoginForm: React.FC = observer((props) => {
       const values = { name, pass };
       await LoginStore.login(values);
 
-      setName("");
-      setPass("");
+      if (LoginStore.isAuth) {
+        setName("");
+        setPass("");
+        onCloseModal();
+      }
     }
   };
 
@@ -48,7 +56,7 @@ const LoginForm: React.FC = observer((props) => {
         <button type="submit">Войти</button>
       </form>
 
-      <button onClick={logout}>Выйти</button>
+      {/* <button onClick={logout}>Выйти</button> */}
     </>
   );
 });
