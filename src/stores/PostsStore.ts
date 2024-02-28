@@ -6,6 +6,7 @@ import {
   // computed
 } from "mobx";
 import * as api from "../utlis/api/functions";
+import LoginStore from "./LoginStore";
 
 export type PostModelType = {
   id: number;
@@ -104,5 +105,22 @@ class PostsStore {
       return result.data;
     }
   };
+
+  deletePost = async (postID: number) => {
+    const result = await api.deletePost(postID, LoginStore.userData);
+
+    console.log("deletePost", result);
+
+    if (result.status === 204) {
+      const foundIndex = this.posts.findIndex((post) => post.id === postID);
+      if (foundIndex !== -1) {
+        runInAction(() => this.posts.splice(foundIndex, 1));
+      }
+    }
+  };
+
+  // editPost = async (postID: number) => {
+  //   const result = await api.editPost(postID);
+  // };
 }
 export default new PostsStore();

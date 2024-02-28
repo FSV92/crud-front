@@ -6,10 +6,11 @@ export type EnteredValuesType = {
   pass: string;
 };
 
-type UserDataType = {
+export type UserDataType = {
   csrf_token: string;
   current_user: { uid: string; roles: Array<string>; name: string };
   logout_token: string;
+  pass: string;
 };
 
 class LoginStore {
@@ -32,18 +33,21 @@ class LoginStore {
       this.userData = JSON.parse(localUserData);
       this.isAuth = true;
     }
+
+    console.log("checkSetAuth", this.userData);
   };
 
   @action
   login = async (values: EnteredValuesType) => {
     const result = await api.login(values);
 
-    console.log("result", result);
-
-    if (result.csrf_token.length) {
-      this.userData = result;
+    if (result.status === 200) {
+      this.userData = result.data;
+      this.userData.pass = values.pass;
       this.isAuth = true;
-      localStorage.setItem("userData", JSON.stringify(result));
+      localStorage.setItem("userData", JSON.stringify(this.userData));
+
+      console.log("login", this.userData);
     }
   };
 

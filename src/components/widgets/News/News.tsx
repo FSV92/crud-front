@@ -12,8 +12,6 @@ const News: React.FC = observer(() => {
     })();
   }, []);
 
-  //   console.log("PostsStore.posts", PostsStore.posts);
-
   return <div className="news">{PostsStore?.posts?.length > 0 && PostsStore.posts.map((post) => <NewsItem post={post} key={post.id} />)}</div>;
 });
 

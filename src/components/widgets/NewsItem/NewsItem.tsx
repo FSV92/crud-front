@@ -3,7 +3,7 @@ import { observer } from "mobx-react-lite";
 import { Link } from "react-router-dom";
 
 import "./NewsItem.scss";
-import { PostModelType } from "../../../stores/PostsStore";
+import PostsStore, { PostModelType } from "../../../stores/PostsStore";
 import Tag from "../../elements/Tag/Tag";
 import Type from "../../elements/Type/Type";
 
@@ -20,6 +20,16 @@ const NewsItem: React.FC<PropsType> = observer((props) => {
     const dateObject = new Date(date);
 
     return dateObject.toLocaleString().split(",")[0];
+  };
+
+  const deletePost = () => {
+    console.log(post.id);
+
+    PostsStore.deletePost(post.id);
+  };
+
+  const editPost = () => {
+    console.log(post.id);
   };
 
   return (
@@ -48,8 +58,12 @@ const NewsItem: React.FC<PropsType> = observer((props) => {
         </div>
 
         <div className="news__item-btns">
-          <button className="news__item-btn news__item-btn--del">Удалить</button>
-          <button className="news__item-btn news__item-btn--edit">Изменить</button>
+          <button className="news__item-btn news__item-btn--del" onClick={deletePost}>
+            Удалить
+          </button>
+          <button className="news__item-btn news__item-btn--edit" onClick={editPost}>
+            Изменить
+          </button>
         </div>
       </div>
     </div>

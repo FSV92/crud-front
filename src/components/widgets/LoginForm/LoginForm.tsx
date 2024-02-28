@@ -8,12 +8,12 @@ const LoginForm: React.FC = observer((props) => {
   const [name, setName] = useState("");
   const [pass, setPass] = useState("");
 
-  const login = (e: any) => {
+  const login = async (e: any) => {
     e.preventDefault();
 
     if (name.length > 2 && pass.length > 2) {
       const values = { name, pass };
-      LoginStore.login(values);
+      await LoginStore.login(values);
 
       setName("");
       setPass("");
