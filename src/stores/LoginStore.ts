@@ -46,9 +46,7 @@ class LoginStore {
       this.isAuth = true;
       localStorage.setItem("userData", JSON.stringify(this.userData));
     } catch (error) {
-      console.log(error);
-
-      // alert(error);
+      alert(error);
     }
     // if (result.status === 200) {
     //   this.userData = result.data;

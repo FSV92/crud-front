@@ -8,3 +8,34 @@
   flex-direction: column;
   font-family: monospace, monospace;
 }
+
+.btn {
+  border: 2px solid blue;
+  border-radius: 8px;
+  background-color: blue;
+  padding: 5px 10px;
+  text-decoration: none;
+  color: white;
+  font-family: monospace;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.input {
+  border: 1px solid grey;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  padding: 10px;
+}
+
+.textarea {
+  border: 1px solid grey;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  padding: 10px;
+  resize: none;
+  height: 300px;
+  white-space: pre-line;
+}

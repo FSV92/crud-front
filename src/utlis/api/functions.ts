@@ -1,6 +1,7 @@
 import * as links from "./links";
 import axios from "axios";
 import { EnteredValuesType, UserDataType } from "../../stores/LoginStore";
+import { EditPostType } from "../../types/PostsTypes";
 
 export const login = async ({ name, pass }: EnteredValuesType) => {
   const response = await axios
@@ -45,7 +46,7 @@ export const getAllPosts = async () => {
   return response;
 };
 
-export const getTaxByID = async (name: string, tid: number) => {
+export const getTaxByID = async (name: string, tid?: number) => {
   const response = await axios
     .get(links.getTaxByID, {
       params: {
@@ -89,24 +90,28 @@ export const deletePost = async (postID: number, userData: UserDataType) => {
   return response;
 };
 
-// export const editPost = async (postID: number) => {
-//   const response = await axios
-//     .put(links.getTaxByID, {
-//       params: {
-//         name,
-//         tid,
-//       },
-//       headers: {
-//         "X-CSRF-Token": "application/json",
-//         "Content-Type": "application/json",
-//       },
-//     })
-//     .then((res) => {
-//       return res;
-//     })
-//     .catch((error) => {
-//       return error.response;
-//     });
+export const createPost = async (values: EditPostType, userData: UserDataType) => {
+  const response = await axios
+    .post(
+      links.createPost,
+      {
+        ...values,
+      },
+      {
+        auth: {
+          username: userData.current_user.name,
+          password: userData.pass,
+        },
+      }
+    )
+    .then((res) => {
+      return res;
+    })
+    .catch((error) => {
+      console.log(error.response.data.message);
 
-//   return response;
-// };
+      return error.response;
+    });
+
+  return response;
+};

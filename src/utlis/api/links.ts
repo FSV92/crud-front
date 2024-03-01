@@ -5,3 +5,4 @@ export const logout = (logoutToken: string) => `${baseUrl}/user/logout?_format=j
 export const getAllPosts = `${baseUrl}/api/getAllPosts`;
 export const getTaxByID = `${baseUrl}/api/getTaxByID`;
 export const deletePost = (postID: number) => `${baseUrl}/node/${postID}?_format=json`;
+export const createPost = `${baseUrl}/node/?_format=json`;

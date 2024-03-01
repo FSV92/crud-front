@@ -3,7 +3,8 @@ import { observer } from "mobx-react-lite";
 import { Link } from "react-router-dom";
 
 import "./NewsItem.scss";
-import PostsStore, { PostModelType } from "../../../stores/PostsStore";
+import PostsStore from "../../../stores/PostsStore";
+import { PostModelType } from "../../../types/PostsTypes";
 import Tag from "../../elements/Tag/Tag";
 import Type from "../../elements/Type/Type";
 
@@ -31,6 +32,9 @@ const NewsItem: React.FC<PropsType> = observer((props) => {
   const editPost = () => {
     console.log(post.id);
   };
+  // {
+  //   console.log(post);
+  // }
 
   return (
     <div className="news__item">
@@ -41,14 +45,15 @@ const NewsItem: React.FC<PropsType> = observer((props) => {
 
         {post.type && <Type type={post.type} />}
       </div>
-      <img className="news__item-img" src={post.image} />
       <div className="news__item-body" dangerouslySetInnerHTML={{ __html: post.body }} />
-      <div className="news__item-dates">
-        Ключевые даты:
-        {post.dates.map((date, index) => {
-          return convertDate(date.value) + `${index !== post.dates.length - 1 ? ", " : ""}`;
-        })}
-      </div>
+      {post.dates?.length > 0 && (
+        <div className="news__item-dates">
+          Ключевые даты:
+          {post.dates.map((date, index) => {
+            return convertDate(date.value) + `${index !== post.dates.length - 1 ? ", " : ""}`;
+          })}
+        </div>
+      )}
 
       <div className="news__item-footer">
         <div className="news__item-tags">
@@ -58,10 +63,10 @@ const NewsItem: React.FC<PropsType> = observer((props) => {
         </div>
 
         <div className="news__item-btns">
-          <button className="news__item-btn news__item-btn--del" onClick={deletePost}>
+          <button className="btn news__item-btn news__item-btn--del" onClick={deletePost}>
             Удалить
           </button>
-          <button className="news__item-btn news__item-btn--edit" onClick={editPost}>
+          <button className="btn news__item-btn news__item-btn--edit" onClick={editPost}>
             Изменить
           </button>
         </div>

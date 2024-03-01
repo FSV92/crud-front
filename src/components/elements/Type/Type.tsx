@@ -3,7 +3,7 @@ import "./Type.scss";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
-import { PostModelType } from "../../../stores/PostsStore";
+import { PostModelType } from "../../../types/PostsTypes";
 import PostsStore from "../../../stores/PostsStore";
 
 const Type: React.FC<{ type: PostModelType["type"] }> = (props) => {

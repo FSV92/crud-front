@@ -16,7 +16,9 @@ const Header = () => {
 
   return (
     <div className="header">
-      <button onClick={openModal}>Авторизация</button>
+      <button className="btn" onClick={openModal}>
+        Авторизация
+      </button>
 
       <ModalComponent isOpen={isModalOpen} onClose={closeModal}>
         <h2>Вход</h2>
