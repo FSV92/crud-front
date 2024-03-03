@@ -7,6 +7,7 @@ import PostsStore from "../../../stores/PostsStore";
 import { PostModelType } from "../../../types/PostsTypes";
 import Tag from "../../elements/Tag/Tag";
 import Type from "../../elements/Type/Type";
+import LoginStore from "../../../stores/LoginStore";
 
 type PropsType = {
   post: PostModelType;
@@ -60,14 +61,16 @@ const NewsItem: React.FC<PropsType> = observer((props) => {
           ))}
         </div>
 
-        <div className="news__item-btns">
-          <button className="btn news__item-btn news__item-btn--del" onClick={deletePost}>
-            Удалить
-          </button>
-          <Link to="/EditPost" className="btn news__item-btn news__item-btn--edit" state={{ postID: post.id }}>
-            Изменить
-          </Link>
-        </div>
+        {LoginStore.userData?.current_user?.roles[1] === "administrator" && (
+          <div className="news__item-btns">
+            <button className="btn news__item-btn news__item-btn--del" onClick={deletePost}>
+              Удалить
+            </button>
+            <Link to="/EditPost" className="btn news__item-btn news__item-btn--edit" state={{ postID: post.id }}>
+              Изменить
+            </Link>
+          </div>
+        )}
       </div>
     </div>
   );

@@ -2,3 +2,17 @@
   display: block;
   padding: 20px 0;
 }
+
+.header__container {
+  padding: 20px;
+  max-width: 70%;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.header__auth {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+}

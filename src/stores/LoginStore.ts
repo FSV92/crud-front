@@ -34,7 +34,7 @@ class LoginStore {
       this.isAuth = true;
     }
 
-    console.log("checkSetAuth", this.userData);
+    console.log("checkSetAuth", this.isAuth);
   };
 
   @action
@@ -58,11 +58,6 @@ class LoginStore {
     const result = await api.logout(csrf_token, logout_token);
 
     console.log("result", result);
-
-    // if (result.csrf_token.length) {
-    //   this.userData = result;
-    //   this.isAuth = true;
-    // }
   };
 }
 

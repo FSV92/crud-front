@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import "./News.scss";
 import NewsItem from "../NewsItem/NewsItem";
 import PostsStore from "../../../stores/PostsStore";
+import LoginStore from "../../../stores/LoginStore";
 
 const News: React.FC = observer(() => {
   useEffect(() => {
@@ -16,9 +17,12 @@ const News: React.FC = observer(() => {
   return (
     <div className="news">
       <div className="news__container">
-        <Link to="/EditPost" className="btn news__add-post">
-          Добавить пост
-        </Link>
+        {LoginStore.userData?.current_user?.roles[1] === "administrator" && (
+          <Link to="/EditPost" className="btn news__add-post">
+            Добавить пост
+          </Link>
+        )}
+
         <div className="news__items">{PostsStore?.posts?.length > 0 && PostsStore.posts.map((post) => <NewsItem post={post} key={post.id} />)}</div>
       </div>
     </div>
