@@ -39,23 +39,17 @@ class LoginStore {
 
   @action
   login = async (values: EnteredValuesType) => {
-    try {
-      const result = await api.login(values);
+    // try {
+    const result = await api.login(values);
+
+    if (result.status === 200) {
       this.userData = result.data;
       this.userData.pass = values.pass;
       this.isAuth = true;
       localStorage.setItem("userData", JSON.stringify(this.userData));
-    } catch (error) {
-      alert(error);
+    } else {
+      alert(result.data.message);
     }
-    // if (result.status === 200) {
-    //   this.userData = result.data;
-    //   this.userData.pass = values.pass;
-    //   this.isAuth = true;
-    //   localStorage.setItem("userData", JSON.stringify(this.userData));
-
-    //   console.log("login", this.userData);
-    // }
   };
 
   @action

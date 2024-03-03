@@ -46,6 +46,23 @@ export const getAllPosts = async () => {
   return response;
 };
 
+export const getPostByID = async (postID: number) => {
+  const response = await axios
+    .get(links.postByID(postID), {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+    .then((res) => {
+      return res;
+    })
+    .catch((error) => {
+      return error.response;
+    });
+
+  return response;
+};
+
 export const getTaxByID = async (name: string, tid?: number) => {
   const response = await axios
     .get(links.getTaxByID, {
@@ -69,7 +86,7 @@ export const getTaxByID = async (name: string, tid?: number) => {
 
 export const deletePost = async (postID: number, userData: UserDataType) => {
   const response = await axios
-    .delete(links.deletePost(postID), {
+    .delete(links.postByID(postID), {
       headers: {
         // "X-CSRF-Token": csrf_token,
         "Content-Type": "application/json",
@@ -98,6 +115,38 @@ export const createPost = async (values: EditPostType, userData: UserDataType) =
         ...values,
       },
       {
+        headers: {
+          "Content-Type": "application/json",
+        },
+        auth: {
+          username: userData.current_user.name,
+          password: userData.pass,
+        },
+      }
+    )
+    .then((res) => {
+      return res;
+    })
+    .catch((error) => {
+      console.log(error.response.data.message);
+
+      return error.response;
+    });
+
+  return response;
+};
+
+export const updatePost = async (postByID: number, values: EditPostType, userData: UserDataType) => {
+  const response = await axios
+    .patch(
+      links.postByID(postByID),
+      {
+        ...values,
+      },
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
         auth: {
           username: userData.current_user.name,
           password: userData.pass,

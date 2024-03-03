@@ -17,11 +17,7 @@ const Tag: React.FC<{ tid: number }> = observer((props) => {
     })();
   }, []);
 
-  return (
-    <Link to="/NewsDetail" className="tag">
-      {tagName}
-    </Link>
-  );
+  return <div className="tag">{tagName}</div>;
 });
 
 export default Tag;

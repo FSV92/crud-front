@@ -18,11 +18,7 @@ const Type: React.FC<{ type: PostModelType["type"] }> = (props) => {
     })();
   }, []);
 
-  return (
-    <Link to="/NewsDetail" className="type">
-      {typeName}
-    </Link>
-  );
+  return <div className="type">{typeName}</div>;
 };
 
 export default Type;

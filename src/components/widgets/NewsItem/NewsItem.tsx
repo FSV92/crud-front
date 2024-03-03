@@ -39,9 +39,7 @@ const NewsItem: React.FC<PropsType> = observer((props) => {
   return (
     <div className="news__item">
       <div className="news__item-head">
-        <Link to="/NewsDetail" className="news__item-title">
-          {post.title}
-        </Link>
+        <h2 className="news__item-title">{post.title}</h2>
 
         {post.type && <Type type={post.type} />}
       </div>
@@ -66,9 +64,9 @@ const NewsItem: React.FC<PropsType> = observer((props) => {
           <button className="btn news__item-btn news__item-btn--del" onClick={deletePost}>
             Удалить
           </button>
-          <button className="btn news__item-btn news__item-btn--edit" onClick={editPost}>
+          <Link to="/EditPost" className="btn news__item-btn news__item-btn--edit" state={{ postID: post.id }}>
             Изменить
-          </button>
+          </Link>
         </div>
       </div>
     </div>
