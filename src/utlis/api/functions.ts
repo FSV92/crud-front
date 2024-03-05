@@ -46,6 +46,26 @@ export const getAllPosts = async () => {
   return response;
 };
 
+export const getSearchedPosts = async (keys: Array<string>) => {
+  const response = await axios
+    .get(links.getSearchedPosts, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+      params: {
+        keys,
+      },
+    })
+    .then((res) => {
+      return res;
+    })
+    .catch((error) => {
+      return error.response;
+    });
+
+  return response;
+};
+
 export const getPostByID = async (postID: number) => {
   const response = await axios
     .get(links.postByID(postID), {
