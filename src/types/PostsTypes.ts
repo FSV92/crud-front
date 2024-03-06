@@ -47,3 +47,8 @@ export type EditPostType = {
     target_id: number | string;
   }>;
 };
+
+export type FilterValsType = {
+  tag_tid: null | Array<number | string>;
+  tip_tid: null | Array<number | string>;
+};

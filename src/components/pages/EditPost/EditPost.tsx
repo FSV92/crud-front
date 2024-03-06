@@ -2,13 +2,6 @@ import React, { useEffect, useRef, useState } from "react";
 import { observer } from "mobx-react-lite";
 // import LoginForm from "../LoginForm/LoginForm";
 import "./EditPost.scss";
-// import {
-//   // makeAutoObservable,
-//   // observable,
-//   // action,
-//   runInAction,
-//   // computed
-// } from "mobx";
 import Select from "react-select";
 
 import PostsStore from "../../../stores/PostsStore";
@@ -27,8 +20,8 @@ const EditPost: React.FC<PropsType> = observer((props) => {
 
   useEffect(() => {
     (async () => {
-      await PostsStore.getAllItemsTax("tip");
-      await PostsStore.getAllItemsTax("tags");
+      // await PostsStore.getAllItemsTax("tip");
+      // await PostsStore.getAllItemsTax("tags");
 
       if (postID) {
         await PostsStore.getPostByID(data.state.postID);
@@ -123,7 +116,6 @@ const EditPost: React.FC<PropsType> = observer((props) => {
               placeholder="Выберите теги"
               onChange={addTag}
               value={postID && PostsStore.selectedTags.length > 0 && PostsStore.selectedTags}
-              // extraData={PostsStore.selectedTags}
             />
 
             {PostsStore.types && (

@@ -1,7 +1,7 @@
 import * as links from "./links";
 import axios from "axios";
 import { EnteredValuesType, UserDataType } from "../../stores/LoginStore";
-import { EditPostType } from "../../types/PostsTypes";
+import { EditPostType, FilterValsType } from "../../types/PostsTypes";
 
 export const login = async ({ name, pass }: EnteredValuesType) => {
   const response = await axios
@@ -34,6 +34,27 @@ export const getAllPosts = async () => {
     .get(links.getAllPosts, {
       headers: {
         "Content-Type": "application/json",
+      },
+    })
+    .then((res) => {
+      return res;
+    })
+    .catch((error) => {
+      return error.response;
+    });
+
+  return response;
+};
+
+export const getPostsByFilter = async (filterValues: FilterValsType) => {
+  const response = await axios
+    .get(links.getPostsByFilter, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+      params: {
+        tip_tid: filterValues.tip_tid,
+        tag_tid: filterValues.tag_tid,
       },
     })
     .then((res) => {

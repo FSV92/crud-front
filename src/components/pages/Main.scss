@@ -1,0 +1,22 @@
+.main__container {
+  padding: 20px;
+  max-width: 70%;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.main__wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.main__wrap-filter {
+  flex: 70%;
+}
+
+.main__wrap-search {
+  flex: 30%;
+}

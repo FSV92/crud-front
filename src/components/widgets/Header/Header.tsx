@@ -1,8 +1,8 @@
+import "./Header.scss";
 import React, { useState } from "react";
 import { observer } from "mobx-react-lite";
 
 import LoginForm from "../LoginForm/LoginForm";
-import "./Header.scss";
 import ModalComponent from "../ModalComponent/ModalComponent";
 import LoginStore from "../../../stores/LoginStore";
 

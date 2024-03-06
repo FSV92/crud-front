@@ -8,7 +8,7 @@ import {
 import * as api from "../utlis/api/functions";
 import LoginStore from "./LoginStore";
 
-import { PostModelType, ReceivedPostType, TaxType, SelectType, EditPostType } from "../types/PostsTypes";
+import { PostModelType, ReceivedPostType, TaxType, SelectType, EditPostType, FilterValsType } from "../types/PostsTypes";
 import { convertingDateToISO, convertingBodyWithGaps } from "../utlis/utils";
 
 class PostModel {
@@ -63,25 +63,21 @@ class PostsStore {
     field_tags: [],
   };
 
-  // @action addTagToLib = (tag: TaxType) => {
-  //   const existingTag = this.tagsLib.find((tagLib: TaxType) => tagLib.tid[0].value === tag.tid[0].value);
+  @observable filterValues: FilterValsType = {
+    tag_tid: [],
+    tip_tid: [],
+  };
 
-  //   if (!existingTag) {
-  //     this.tagsLib.push(tag);
-  //   }
+  @action resetFilterValues = () => {
+    this.selectedTags = [];
+    this.selectedType = null;
+  };
 
-  //   localStorage.setItem("tagsLib", JSON.stringify(this.tagsLib));
-  // };
+  @action setElementFilterValues = (nameTax: string, elements: Array<SelectType>) => {
+    const currentElements = elements.map((type) => type.id);
 
-  // @action addTypeToLib = (type: TaxType) => {
-  //   const existingType = this.typesLib.find((typeLib: TaxType) => typeLib.tid[0].value === type.tid[0].value);
-
-  //   if (!existingType) {
-  //     this.typesLib.push(type);
-  //   }
-
-  //   localStorage.setItem("typesLib", JSON.stringify(this.typesLib));
-  // };
+    this.filterValues = { ...this.filterValues, [nameTax]: currentElements };
+  };
 
   @action resetInputPostValues = () => {
     this.inputPostValues.title.value = "";
@@ -156,7 +152,7 @@ class PostsStore {
   };
 
   // апи запросы
-  // получить все запросы
+  // получить все посты
   getAllPosts = async () => {
     const result = await api.getAllPosts();
 
@@ -164,6 +160,19 @@ class PostsStore {
       runInAction(() => {
         this.posts = this.createPostsSection(result.data);
       });
+    }
+  };
+
+  getPostsByFilter = async () => {
+    const result = await api.getPostsByFilter(this.filterValues);
+
+    if (result?.status === 200) {
+      runInAction(() => {
+        this.posts = [];
+        this.posts = this.createPostsSection(result.data);
+      });
+    } else {
+      alert(result.data);
     }
   };
 

@@ -1,0 +1,15 @@
+.filter {
+  border: 1px solid grey;
+  padding: 10px;
+  border-radius: 10px;
+  width: 100%;
+}
+
+.filter__form {
+  display: flex;
+  gap: 10px;
+}
+
+.filter__form-select {
+  flex: 50%;
+}
