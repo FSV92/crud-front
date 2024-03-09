@@ -44,11 +44,8 @@ class PostsStore {
   @observable currentPost: ReceivedPostType = null;
   @observable loadingEditPost: boolean = false;
 
-  // @observable tagsLib: Array<TaxType> = [];
   @observable tagsLib: Array<SelectType> = [];
-  // @observable typesLib: Array<TaxType> = [];
   @observable typesLib: Array<SelectType> = [];
-  // @observable postValues: PostModelType = {}
 
   @observable inputPostValues: EditPostType = {
     title: { value: "" },
@@ -66,6 +63,12 @@ class PostsStore {
   @observable filterValues: FilterValsType = {
     tag_tid: [],
     tip_tid: [],
+  };
+
+  @action searchQuery: string = "";
+
+  @action setSearchQuery = (val: string) => {
+    this.searchQuery = val;
   };
 
   @action resetFilterValues = () => {
@@ -165,6 +168,19 @@ class PostsStore {
 
   getPostsByFilter = async () => {
     const result = await api.getPostsByFilter(this.filterValues);
+
+    if (result?.status === 200) {
+      runInAction(() => {
+        this.posts = [];
+        this.posts = this.createPostsSection(result.data);
+      });
+    } else {
+      alert(result.data);
+    }
+  };
+
+  searchPosts = async () => {
+    const result = await api.searchPosts(this.searchQuery);
 
     if (result?.status === 200) {
       runInAction(() => {

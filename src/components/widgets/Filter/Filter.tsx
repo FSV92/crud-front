@@ -26,8 +26,6 @@ const Filter: React.FC = observer(() => {
     e.preventDefault();
 
     PostsStore.getPostsByFilter();
-
-    // console.log(PostsStore.filterValues);
   };
 
   return (

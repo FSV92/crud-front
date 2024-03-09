@@ -67,14 +67,15 @@ export const getPostsByFilter = async (filterValues: FilterValsType) => {
   return response;
 };
 
-export const getSearchedPosts = async (keys: Array<string>) => {
+export const searchPosts = async (query: string) => {
   const response = await axios
-    .get(links.getSearchedPosts, {
+    .get(links.searchPosts, {
       headers: {
         "Content-Type": "application/json",
       },
       params: {
-        keys,
+        _format: "json",
+        query,
       },
     })
     .then((res) => {
@@ -92,6 +93,9 @@ export const getPostByID = async (postID: number) => {
     .get(links.postByID(postID), {
       headers: {
         "Content-Type": "application/json",
+      },
+      params: {
+        _format: "json",
       },
     })
     .then((res) => {
