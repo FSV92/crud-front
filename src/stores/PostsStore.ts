@@ -71,6 +71,10 @@ class PostsStore {
     this.searchQuery = val;
   };
 
+  @action resetSearchQuery = () => {
+    this.searchQuery = "";
+  };
+
   @action resetFilterValues = () => {
     this.selectedTags = [];
     this.selectedType = null;
@@ -158,15 +162,18 @@ class PostsStore {
   // получить все посты
   getAllPosts = async () => {
     const result = await api.getAllPosts();
+    // console.log("getAllPosts", result);
 
     if (result?.status === 200) {
       runInAction(() => {
+        this.posts = [];
         this.posts = this.createPostsSection(result.data);
       });
     }
   };
 
   getPostsByFilter = async () => {
+    this.resetSearchQuery();
     const result = await api.getPostsByFilter(this.filterValues);
 
     if (result?.status === 200) {
@@ -180,6 +187,7 @@ class PostsStore {
   };
 
   searchPosts = async () => {
+    this.resetFilterValues();
     const result = await api.searchPosts(this.searchQuery);
 
     if (result?.status === 200) {
@@ -207,7 +215,7 @@ class PostsStore {
 
       // теги
       if (result?.data?.field_tags?.length > 0) {
-        this.tagsLib = JSON.parse(localStorage.getItem("tagsLib"));
+        this.tagsLib = JSON.parse(sessionStorage.getItem("tagsLib"));
 
         runInAction(() => (this.selectedTags = []));
         for (const tag of result.data.field_tags) {
@@ -220,7 +228,7 @@ class PostsStore {
 
       // тип события
       if (result?.data?.field_tip_sobytiya?.length > 0) {
-        this.typesLib = JSON.parse(localStorage.getItem("typesLib"));
+        this.typesLib = JSON.parse(sessionStorage.getItem("typesLib"));
 
         runInAction(() => (this.selectedType = null));
         const currentType = this.typesLib.find((typeLib: SelectType) => typeLib?.id === result?.data?.field_tip_sobytiya[0].target_id);
@@ -260,12 +268,12 @@ class PostsStore {
     if (result?.status === 200) {
       if (name === "tags") {
         runInAction(() => (this.tags = result.data.map((tag: TaxType) => this.createSelectObj(tag))));
-        localStorage.setItem("tagsLib", JSON.stringify(this.tags));
+        sessionStorage.setItem("tagsLib", JSON.stringify(this.tags));
       }
 
       if (name === "tip") {
         runInAction(() => (this.types = result.data.map((type: TaxType) => this.createSelectObj(type))));
-        localStorage.setItem("typesLib", JSON.stringify(this.types));
+        sessionStorage.setItem("typesLib", JSON.stringify(this.types));
       }
     }
   };

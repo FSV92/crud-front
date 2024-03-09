@@ -22,14 +22,18 @@ class LoginStore {
   @observable userData: UserDataType = null;
   @observable isAuth: boolean = false;
 
+  @computed get isAdmin() {
+    return this.userData?.current_user?.roles?.length > 0 && this.userData?.current_user?.roles[1] === "administrator";
+  }
+
   @action setEnteredValue = (key: string, val: string) => {
     this.enteredValues = { ...this.enteredValues, [key]: (val += val) };
   };
 
   @action
   checkSetAuth = () => {
-    if (!this.userData && localStorage.userData) {
-      const localUserData = localStorage.getItem("userData");
+    if (!this.userData && sessionStorage.userData) {
+      const localUserData = sessionStorage.getItem("userData");
       this.userData = JSON.parse(localUserData);
       this.isAuth = true;
     }
@@ -43,10 +47,13 @@ class LoginStore {
     const result = await api.login(values);
 
     if (result.status === 200) {
-      this.userData = result.data;
-      this.userData.pass = values.pass;
-      this.isAuth = true;
-      localStorage.setItem("userData", JSON.stringify(this.userData));
+      runInAction(() => {
+        this.userData = result.data;
+        this.userData.pass = values.pass;
+        this.isAuth = true;
+      });
+
+      sessionStorage.setItem("userData", JSON.stringify(this.userData));
     } else {
       alert(result.data.message);
     }
@@ -54,10 +61,11 @@ class LoginStore {
 
   @action
   logout = async () => {
-    const { csrf_token, logout_token } = this.userData;
-    const result = await api.logout(csrf_token, logout_token);
-
-    console.log("result", result);
+    runInAction(() => {
+      this.userData = null;
+      sessionStorage.removeItem("userData");
+      this.isAuth = false;
+    });
   };
 }
 

@@ -16,8 +16,6 @@ type PropsType = {
 const NewsItem: React.FC<PropsType> = observer((props) => {
   const { post } = props;
 
-  // console.log(post);
-
   const convertDate = (date: string) => {
     const dateObject = new Date(date);
 
@@ -29,13 +27,6 @@ const NewsItem: React.FC<PropsType> = observer((props) => {
 
     PostsStore.deletePost(post.id);
   };
-
-  const editPost = () => {
-    console.log(post.id);
-  };
-  // {
-  //   console.log(post);
-  // }
 
   return (
     <div className="news__item">
@@ -61,7 +52,7 @@ const NewsItem: React.FC<PropsType> = observer((props) => {
           ))}
         </div>
 
-        {LoginStore.userData?.current_user?.roles[1] === "administrator" && (
+        {LoginStore.isAdmin && (
           <div className="news__item-btns">
             <button className="btn news__item-btn news__item-btn--del" onClick={deletePost}>
               Удалить

@@ -17,7 +17,7 @@ const News: React.FC = observer(() => {
   return (
     <div className="news">
       <div className="news__container">
-        {LoginStore.userData?.current_user?.roles[1] === "administrator" && (
+        {LoginStore.isAdmin && (
           <Link to="/EditPost" className="btn news__add-post">
             Добавить пост
           </Link>

@@ -17,6 +17,10 @@ const Header: React.FC = observer(() => {
     setIsModalOpen(false);
   };
 
+  const logout = () => {
+    LoginStore.logout();
+  };
+
   return (
     <div className="header">
       <div className="header__container">
@@ -24,7 +28,9 @@ const Header: React.FC = observer(() => {
           <div className="header__auth">
             <span>{LoginStore.userData.current_user.name}</span>
 
-            <button className="btn">Выйти</button>
+            <button className="btn" onClick={logout}>
+              Выйти
+            </button>
           </div>
         ) : (
           <button className="btn" onClick={openModal}>

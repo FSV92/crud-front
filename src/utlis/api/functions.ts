@@ -5,25 +5,18 @@ import { EditPostType, FilterValsType } from "../../types/PostsTypes";
 
 export const login = async ({ name, pass }: EnteredValuesType) => {
   const response = await axios
-    .post(links.login, { name, pass })
+    .post(
+      links.login,
+      { name, pass },
+      {
+        params: {
+          _format: "json",
+        },
+      }
+    )
     .then((res) => res)
     .catch((error) => {
-      console.log(error.response.data);
-
-      return error.response.data;
-    });
-
-  return response;
-};
-
-export const logout = async (csrf_token: string, logoutToken: string) => {
-  // console.log(csrf_token);
-
-  const response = await axios
-    .post(links.logout(logoutToken), {}, { headers: { "X-CSRF-Token": csrf_token } })
-    .then((res) => res)
-    .catch((error) => {
-      return error.response.data;
+      return error.response;
     });
 
   return response;
@@ -135,7 +128,6 @@ export const deletePost = async (postID: number, userData: UserDataType) => {
       headers: {
         // "X-CSRF-Token": csrf_token,
         "Content-Type": "application/json",
-        // credentials: "include",
       },
       auth: {
         username: userData.current_user.name,
@@ -166,6 +158,9 @@ export const createPost = async (values: EditPostType, userData: UserDataType) =
         auth: {
           username: userData.current_user.name,
           password: userData.pass,
+        },
+        params: {
+          _format: "json",
         },
       }
     )
